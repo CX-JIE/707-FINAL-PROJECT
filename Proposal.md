@@ -1,6 +1,6 @@
 # A Simple, Interpretable Model versus a Black Box for Predicting In-Hospital Mortality in ICU Patients
 
-> **707 Final Project — Proposal** · **Team:** Junjie Cai, Jiahui Hu, Yuyao Lei · **Repository:** [CX-JIE/707-FINAL-PROJECT](https://github.com/CX-JIE/707-FINAL-PROJECT) · **Date:** 15 October 2026
+> **707 Final Project — Proposal** · **Team:** Junjie Cai, Jiahui Hu (jh1029@duke.edu), Yuyao Lei (yl1216@duke.edu)· **Repository:** [CX-JIE/707-FINAL-PROJECT](https://github.com/CX-JIE/707-FINAL-PROJECT) · **Date:** 15 October 2026
 
 ---
 
