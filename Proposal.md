@@ -1,6 +1,6 @@
 # A Simple, Interpretable Model versus a Black Box for Predicting In-Hospital Mortality in ICU Patients
 
-> **707 Final Project — Proposal** · **Team:** Junjie Cai (jc1206@duke.edu), Jiahui Hu (jh1029@duke.edu), Yuyao Lei (yl1216@duke.edu)· **Repository:** [CX-JIE/707-FINAL-PROJECT](https://github.com/CX-JIE/707-FINAL-PROJECT) · **Date:** 15 October 2026
+> **707 Final Project — Proposal** · **Team:** Junjie Cai (jc1206@duke.edu), Yifei Chen (yc772@duke.edu), Jiahui Hu (jh1029@duke.edu), Yuyao Lei (yl1216@duke.edu)· **Repository:** [CX-JIE/707-FINAL-PROJECT](https://github.com/CX-JIE/707-FINAL-PROJECT) · **Date:** 15 October 2026
 
 ---
 
@@ -283,8 +283,9 @@ Large data files will **not** be committed unless redistribution is permitted an
 | Member | Responsibility | Concrete tasks |
 | :--- | :--- | :--- |
 | **Junjie Cai** | Data and cohort construction | Verify data access and license terms; inspect outcome coding; construct the patient-level cohort; summarize missingness; document data provenance |
-| **Jiahui Hu** | Interpretable and regularized models | Implement the GAM, shallow decision tree, and LASSO logistic regression; conduct appropriate model tuning; prepare coefficient and partial-effect visualizations |
-| **Yuyao Lei** | Black-box modeling and evaluation | Implement gradient boosting and the clinical-score benchmarks; coordinate the shared validation framework; produce discrimination, calibration, and decision curve comparisons |
+| **Yifei Chen** | Interpretable and regularized models | Implement the GAM, shallow decision tree, and LASSO logistic regression; conduct appropriate model tuning; prepare coefficient and partial-effect visualizations |
+| **Jiahui Hu** | Black-box modeling and evaluation | Implement gradient boosting and the clinical-score benchmarks; prepare feature-importance and post hoc model-explanation visualizations|
+| **Yuyao Lei** |Shared validation and comparative evaluation|Coordinate the shared validation framework; ensure consistent data splits and evaluation procedures across models; produce discrimination, calibration, and decision curve comparisons; summarize comparative results|
 
 ### 7.3 Shared standards
 
@@ -292,7 +293,7 @@ All members will:
 
 - review the analysis plan;
 - cross-check the results;
-- contribute to the interpretation and the final report; and
+- contribute to the interpretation, project proposal, final report and in-class presentation; and
 - document their individual contributions.
 
 The team will use a **shared set of validation folds** and **consistent outcome definitions** to ensure that model comparisons are reproducible and fair.
