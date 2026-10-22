@@ -2,7 +2,7 @@
 
 Compare a simple, interpretable model with a black-box model for predicting **in-hospital mortality** in ICU patients, using only data from the first 24 hours of admission.
 
-**Team:** Junjie Cai, Jiahui Hu, Yuyao Lei
+**Team:** Junjie Cai, Yifei Chen, Jiahui Hu, Yuyao Lei
 
 ## Overview
 
