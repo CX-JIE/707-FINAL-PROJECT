@@ -1,0 +1,41 @@
+{
+  "a": {
+    "n_records": 4000,
+    "n_no_obs_24h": 3,
+    "median_obs_24h": 228.0,
+    "age_median": 67.0,
+    "female_pct": 43.775,
+    "icutype_pct": {
+      "1": 14.4,
+      "2": 21.9,
+      "3": 37.0,
+      "4": 26.7
+    }
+  },
+  "b": {
+    "n_records": 4000,
+    "n_no_obs_24h": 7,
+    "median_obs_24h": 228.5,
+    "age_median": 67.0,
+    "female_pct": 43.55,
+    "icutype_pct": {
+      "1": 14.8,
+      "2": 19.6,
+      "3": 35.9,
+      "4": 29.8
+    }
+  },
+  "c": {
+    "n_records": 4000,
+    "n_no_obs_24h": 1,
+    "median_obs_24h": 228.0,
+    "age_median": 67.0,
+    "female_pct": 44.2,
+    "icutype_pct": {
+      "1": 15.0,
+      "2": 21.9,
+      "3": 34.4,
+      "4": 28.7
+    }
+  }
+}

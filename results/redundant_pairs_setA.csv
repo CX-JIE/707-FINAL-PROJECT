@@ -1,0 +1,15 @@
+var1,var2,spearman,n_pairwise
+MAPc_mean,MAP_mean,1.0,2640
+MAPc_mean,DiasABP_mean,0.851,2628
+DiasABP_mean,MAP_mean,0.851,2622
+NISysABP_mean,NIMAP_mean,0.833,3125
+BUN_max,Creatinine_max,0.75,3899
+MAPc_mean,NIMAP_mean,0.724,3126
+SysABP_mean,MAP_mean,0.697,2623
+MAPc_mean,SysABP_mean,0.696,2629
+SaO2_min,PaO2_min,0.687,1483
+SysABP_mean,NISysABP_mean,0.653,1832
+NIMAP_mean,MAP_mean,0.597,1837
+MAPc_mean,NISysABP_mean,0.588,3132
+DiasABP_mean,NIMAP_mean,0.544,1825
+SysABP_mean,NIMAP_mean,0.527,1826

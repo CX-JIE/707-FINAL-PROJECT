@@ -1,0 +1,16 @@
+feature,label,in_small7,missing_pct,median,q1,q3,min,max
+Age,Age,True,0.0,67.0,52.75,78.0,15.0,90.0
+GCS_min,GCS (min),True,1.9,8.0,3.0,14.0,3.0,15.0
+HR_mean,Heart rate (mean),True,1.8,86.22,76.67,97.35,38.04,145.22
+MAPc_mean,"MAP (mean; invasive, else non-invasive)",True,1.8,77.92,71.72,86.16,4.0,265.9
+RespRate_mean,Respiratory rate (mean),True,72.6,19.0,16.74,22.0,10.33,39.41
+SaO2_min,SaO2 (min),True,62.3,97.0,95.0,98.0,26.0,100.0
+BUN_max,BUN (max),True,2.5,20.0,14.0,32.0,3.0,197.0
+PaO2_min,PaO2 (min),False,28.6,91.0,73.0,121.0,20.0,500.0
+Creatinine_max,Creatinine (max),False,2.5,1.0,0.7,1.5,0.2,22.1
+WBC_max,WBC (max),False,3.6,12.5,9.3,17.0,0.1,187.5
+Platelets_min,Platelets (min),False,3.3,182.0,126.0,246.0,6.0,919.0
+HCT_min,Hematocrit (min),False,2.7,29.6,26.0,33.7,9.0,61.8
+Glucose_max,Glucose (max),False,6.7,141.0,116.0,181.0,35.0,1143.0
+Bilirubin_max,Bilirubin (max),False,63.2,0.7,0.4,1.6,0.1,45.9
+Temp_mean,Temperature (mean),False,1.8,36.93,36.53,37.36,33.22,39.8

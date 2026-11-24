@@ -1,0 +1,11 @@
+pattern (Age GCS_min HR_mean MAPc_mean RespRate_mean SaO2_min BUN_max),n
+....MM.,1422
+....M..,1357
+.....M.,924
+.......,129
+.MMMMM.,59
+.....MM,41
+....MMM,37
+....M.M,12
+.MMMM..,6
+.MMMMMM,6
