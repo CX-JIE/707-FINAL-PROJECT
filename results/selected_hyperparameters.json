@@ -1,0 +1,300 @@
+{
+ "GAM-7": [
+  {
+   "gam__lam": 3.1622776601683795
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  }
+ ],
+ "XGB-full": [
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 3,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  }
+ ],
+ "XGB-7": [
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.85,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 200,
+   "xgb__min_child_weight": 5,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.1,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.85,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 200,
+   "xgb__min_child_weight": 5,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.1,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  }
+ ],
+ "Tree-7": [
+  {
+   "dt__max_depth": 4,
+   "dt__min_samples_leaf": 100
+  },
+  {
+   "dt__max_depth": 3,
+   "dt__min_samples_leaf": 100
+  },
+  {
+   "dt__max_depth": 4,
+   "dt__min_samples_leaf": 100
+  },
+  {
+   "dt__max_depth": 4,
+   "dt__min_samples_leaf": 100
+  },
+  {
+   "dt__max_depth": 4,
+   "dt__min_samples_leaf": 100
+  }
+ ],
+ "LASSO-15": [
+  {
+   "lr__C": 0.21544346900318823
+  },
+  {
+   "lr__C": 0.21544346900318823
+  },
+  {
+   "lr__C": 0.21544346900318823
+  },
+  {
+   "lr__C": 0.1
+  },
+  {
+   "lr__C": 0.21544346900318823
+  }
+ ],
+ "XGB-15": [
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 3,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.85,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 200,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 6,
+   "xgb__learning_rate": 0.05,
+   "xgb__gamma": 1.0,
+   "xgb__colsample_bytree": 0.5
+  }
+ ],
+ "XGB-full (native NA)": [
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 1.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 2,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 3,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 10.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 4,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 0.5
+  },
+  {
+   "xgb__subsample": 0.7,
+   "xgb__reg_lambda": 5.0,
+   "xgb__n_estimators": 600,
+   "xgb__min_child_weight": 1,
+   "xgb__max_depth": 3,
+   "xgb__learning_rate": 0.02,
+   "xgb__gamma": 0.0,
+   "xgb__colsample_bytree": 1.0
+  }
+ ],
+ "GAM-7 + NA indicators": [
+  {
+   "gam__lam": 1.0
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  },
+  {
+   "gam__lam": 1.0
+  },
+  {
+   "gam__lam": 1.0
+  },
+  {
+   "gam__lam": 3.1622776601683795
+  }
+ ],
+ "Ridge-15": [
+  {
+   "lr__C": 0.046415888336127774
+  },
+  {
+   "lr__C": 0.046415888336127774
+  },
+  {
+   "lr__C": 0.021544346900318822
+  },
+  {
+   "lr__C": 0.046415888336127774
+  },
+  {
+   "lr__C": 0.046415888336127774
+  }
+ ]
+}

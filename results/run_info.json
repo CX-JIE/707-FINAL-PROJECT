@@ -1,0 +1,14 @@
+{
+ "n": 4000,
+ "deaths": 554,
+ "mortality_pct": 13.850000000000001,
+ "quick": false,
+ "n_boot": 2000,
+ "n_iter_xgb": 25,
+ "versions": {
+  "xgboost": "3.4.2",
+  "pygam": "0.12.0",
+  "shap": "0.51.0",
+  "sklearn": "1.9.1"
+ }
+}
