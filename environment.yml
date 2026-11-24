@@ -1,0 +1,16 @@
+name: icu707
+# Official conda-forge only (full URL so .condarc mirrors / channel_alias are not used)
+channels:
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn>=1.4
+  - matplotlib
+  - xgboost>=2.0
+  - pygam>=0.9.1
+  - shap>=0.44
+  - markdown   # Final_Report.html (Final_Report.md is written without it)

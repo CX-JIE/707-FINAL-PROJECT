@@ -65,6 +65,8 @@ The unit of analysis will be **one ICU patient record**. A record will be includ
 
 Patients will **not** be excluded solely because some predictor measurements are missing.
 
+The primary analysis will use set A. Set B may be expected to be used as a separate test set after model development is completed.
+
 ### 2.3 Outcome definition
 
 The primary outcome will be **in-hospital death**, coded as a binary variable using the dataset's documented outcome definition.
@@ -78,8 +80,10 @@ Predictors will be restricted to information available during the **first 24 hou
 Before finalizing the cohort, we will:
 
 1. download and inspect the data;
-2. verify the outcome coding and variable definitions; and
-3. report the numbers of eligible records, deaths, and survivors.
+2. verify the outcome coding and variable definitions; 
+3. check variable units and measurement availability;
+4. report the numbers of eligible records, deaths, and survivors;
+5. examine the distribution and completeness of the candidate predictors.
 
 ---
 
@@ -87,7 +91,7 @@ Before finalizing the cohort, we will:
 
 We will construct **two feature sets**: a small, interpretable core set and a full set of eligible measurements.
 
-### 3.1 The core feature set: 15 prespecified predictors
+### 3.1 The core feature set: 15 eligible predictors
 
 The interpretable feature set consists of 15 candidate predictors, prespecified on the basis of their clinical relevance and interpretability.
 
@@ -109,25 +113,30 @@ The interpretable feature set consists of 15 candidate predictors, prespecified 
 | 14 | Bilirubin | Hepatic function |
 | 15 | Temperature | Additional physiological status |
 
-These predictors cover several clinically relevant dimensions of critical illness and can be interpreted in terms of patient characteristics, physiological status, and organ function.
+These predictors cover several clinically relevant dimensions of critical illness and can be interpreted in terms of patient characteristics, physiological status, and organ function. The 15-variable set will be used for supplementary LASSO logistic regression and other exploratory comparisons.
 
 Two points about this set are worth noting:
 
 - **Availability and coding** will be verified against the downloaded data before modeling.
 - **Inclusion is based on clinical rationale**, not on an assumption that every variable will independently improve prediction.
 
-### 3.2 Summarizing repeated measurements
+### 3.2 The small feature set: 7 prespecified predictors
 
-For repeatedly measured variables, we will derive **prespecified summaries** from measurements collected during the first 24 hours of ICU admission. Depending on the variable, these may include the mean, the minimum, or the maximum. For example:
+Following the original project idea, the logistic GAM will use seven prespecified predictors selected on the basis of clinical relevance, interpretability, and coverage of different physiological domains. From the core feacture set, this includes:
 
-| Variable (example) | Candidate summary |
-| :--- | :--- |
-| Glasgow Coma Scale (GCS) | Minimum |
-| Oxygen saturation (SaO₂) | Minimum |
-| Heart rate (HR) | Mean |
-| Blood urea nitrogen (BUN) | Maximum |
+- Age
+- GCS
+- HR
+- MAP
+- Respiratory rate
+- SaO2
+- BUN
 
-Before finalizing the summaries, we will inspect variable definitions, units, data completeness, and distributions.
+These seven predictors cover demographic characteristics, neurological status, cardiovascular and hemodynamic function, respiratory status, and renal function.
+
+The selected variables are intended to provide a clinically meaningful and relatively compact representation of patient condition. Their selection is prespecified rather than based on univariate outcome associations or data-driven variable selection.
+
+The final variable definitions, measurement summaries, and availability will be verified before model fitting. If a selected variable has substantial missingness or cannot be reliably constructed, any replacement will be justified using prespecified clinical and data-quality considerations and documented before evaluating model performance.
 
 ### 3.3 The full feature set
 
@@ -141,15 +150,48 @@ The full feature set will include the eligible measurements and patient characte
 - blood pressure measurements obtained using different methods; and
 - other laboratory or physiological measurements.
 
-### 3.4 Missingness and redundancy
+### 3.4 Summarizing repeated measurements
+
+For repeatedly measured variables, we will derive **prespecified summaries** from measurements collected during the first 24 hours of ICU admission. Depending on the variable, these may include the mean, the minimum, or the maximum. For example:
+
+| Variable (example) | Candidate summary |
+| :--- | :--- |
+| Glasgow Coma Scale (GCS) | Minimum |
+| Oxygen saturation (SaO₂) | Minimum |
+| Heart rate (HR) | Mean |
+| Blood urea nitrogen (BUN) | Maximum |
+
+Before finalizing the summaries, we will inspect variable definitions, units, data completeness, and distributions.
+
+### 3.5 Missingness and redundancy handling
 
 We will examine missingness and redundancy before including additional variables. For example, MAP and systolic or diastolic blood pressure provide related but non-identical information, while PaO₂ and SaO₂ represent different aspects of oxygenation. Variables with substantial missingness or overlapping information will be evaluated carefully rather than included automatically.
 
-### 3.5 Why we compare two feature sets
+The assessment will include:
 
-We will compare models using the core predictor set with models using an expanded feature set to assess whether additional clinical information improves predictive performance.
+- Missingness proportions for individual variables;
+- Missingness patterns across patients;
+- Distributions of observed values;
+- Potential invalid or implausible measurements; and
+- Redundancy among related predictors.
+
+For the primary model comparison, we will use a consistent imputation strategy for the predictors shared across models. Continuous variables will initially be considered for median imputation, while categorical variables, if included, will be considered for mode imputation.
+
+The imputation strategy will be implemented within each training fold. Imputation parameters will be estimated using only the corresponding training data and then applied to the held-out validation data to avoid information leakage.
+
+For predictors shared by different models, the same fold-specific imputed values will be used. Additional features required by the full-feature XGBoost model will undergo the same training-fold-based preprocessing procedure.
+
+As a supplementary analysis, we may examine XGBoost using its native missing-value handling to assess whether its performance is sensitive to the imputation strategy.
+
+### 3.6 Rationale for comparing two feature sets
+
+The main comparison is designed to evaluate the practical trade-off between a compact, interpretable model and a more flexible model using a larger amount of available information.
+
+The GAM will use seven prespecified predictors, whereas the primary XGBoost model will use the full eligible feature set, as specified in the original project idea.
 
 Because both the **number of predictors** and the **model's flexibility** may change in this comparison, any performance difference will not be attributed to model complexity alone.
+
+To help distinguish these contributions, we will additionally fit an XGBoost model using the same seven predictors as the GAM. This supplementary comparison will provide a more controlled assessment of differences between the modeling approaches when the predictor set is held constant.
 
 ---
 
@@ -161,10 +203,11 @@ We will compare four types of prediction approaches, plus two clinical score bas
 
 | Model | Role | Predictors | Form of interpretability |
 | :--- | :--- | :--- | :--- |
-| **Logistic GAM** | Interpretable candidate | The first seven of 15 core predictors | Smooth, additive partial effects |
-| **Shallow decision tree** | Interpretable candidate | The first seven of 15 core predictors | A compact set of explicit decision rules |
-| **LASSO / ridge logistic regression** | Regularized statistical comparison | Eligible predictor set | Sparse or shrunk coefficients |
-| **Gradient boosting (XGBoost)** | Black-box benchmark | Full eligible feature set | None directly; post hoc explanations only |
+| **Logistic GAM** | Interpretable candidate | The 7 prespecified predictors | Smooth, additive partial effects |
+| **Shallow decision tree** | Interpretable candidate | The 7 prespecified predictors | A compact set of explicit decision rules |
+| **LASSO logistic regression** | Regularized statistical comparison | 15 core predictors | Sparse coefficients |
+| **Gradient boosting (XGBoost) (full)** | Black-box benchmark | Full eligible feature set | None directly; post hoc explanations only |
+| **Gradient boosting (XGBoost) (7 predictors)** | Supplementary controlled comparison | The 7 prespecified predictors | None directly; post hoc explanations only |
 | **SAPS-I, SOFA** | Clinical reference points | Predefined score definitions | Established clinical severity scores |
 
 Abbreviations: GAM = generalized additive model; LASSO = least absolute shrinkage and selection operator; XGBoost = extreme gradient boosting; SAPS-I = Simplified Acute Physiology Score I; SOFA = Sequential Organ Failure Assessment.
@@ -180,13 +223,17 @@ We will compare their predictive performance and interpretability, recognizing t
 - smooth, additive effects (GAM); and
 - explicit decision rules (tree).
 
-### 4.3 Regularized model: LASSO or ridge
+### 4.3 Regularized model: LASSO
 
-LASSO or ridge logistic regression will be fitted on the eligible predictor set, with the regularization parameter selected **within the training data**.
+LASSO logistic regression will be fitted on the 15-variable core feature set, with the regularization parameter selected **within the training data** through inner cross-validation.
+
+LASSO will provide a regularized linear modeling benchmark and may identify a smaller subset of predictors through coefficient shrinkage.
 
 ### 4.4 Black-box model: gradient boosting
 
 A gradient boosting algorithm such as **XGBoost** will be fitted on the full eligible feature set, with hyperparameters tuned **within the training data**. Gradient boosting represents the more flexible, less directly interpretable approach.
+
+A supplementary XGBoost model will also be fitted using the same 7 predictors as the GAM. This will help assess the contribution of model flexibility when the predictor set is held constant.
 
 ### 4.5 Clinical score baselines: SAPS-I and SOFA
 
@@ -194,10 +241,33 @@ SAPS-I and SOFA will be evaluated as **existing clinical severity-score benchmar
 
 ### 4.6 Rules for a fair comparison
 
-1. **Same predictors first.** To make the primary comparison informative, the GAM, the shallow decision tree, and gradient boosting will be evaluated using the same 15 prespecified predictors.
-2. **Then expand.** We will then examine whether an expanded feature set improves the performance of gradient boosting.
-3. **No information leakage.** All preprocessing and model tuning will be conducted within the training data.
-4. **Same folds.** All fitted models will be evaluated on the same outer folds.
+1. **Primary comparison**
+
+- Logistic GAM using seven prespecified predictors;
+- XGBoost using all eligible features;
+- SAPS-I and SOFA as clinical benchmarks.
+
+This comparison addresses whether a compact and interpretable model can achieve competitive performance relative to a more flexible model using a larger feature set.
+
+2. **Supplementary comparison**
+
+- Logistic GAM using seven predictors;
+- XGBoost using the same seven predictors.
+
+This comparison helps assess whether a more flexible modeling approach provides additional predictive value when the predictor set is held constant.
+
+3. **Additional exploratory comparison**
+
+- LASSO logistic regression using 15 core predictors;
+- Shallow decision tree using seven predictors;
+- XGBoost using the 15-variable core set, if computationally feasible.
+
+These models will provide additional context on the effects of regularization, model structure, and feature-set size.
+
+
+4. **Same folds**
+
+All fitted models will use the same outer validation folds. Shared predictors will undergo consistent preprocessing, and all preprocessing and tuning will be conducted within the corresponding training data.
 
 ---
 
@@ -205,12 +275,18 @@ SAPS-I and SOFA will be evaluated as **existing clinical severity-score benchmar
 
 ### 5.1 Validation design
 
-We will use **stratified five-fold cross-validation at the patient-record level**. The procedure is:
+We will use **stratified five-fold nested cross-validation at the patient-record level**. The procedure is:
 
-1. Split records into five stratified folds, keeping the death/survival ratio similar across folds.
-2. Within each training fold, fit all preprocessing steps and select hyperparameters.
-3. Where computationally feasible, use an **inner cross-validation loop** for tuning, to reduce optimism in model comparisons.
-4. Evaluate every fitted model on the same held-out fold, so that all models are compared on identical data.
+1. Divide the eligible patient records into five stratified outer folds, maintaining similar mortality proportions across folds.
+2. Use four folds as the outer training set and the remaining fold as the outer validation set.
+3. Within each outer training set, conduct inner five-fold cross-validation to select hyperparameters for models requiring tuning.
+4. Perform all preprocessing steps, including imputation and any data-driven feature selection, within the corresponding training data.
+5. Refit the selected model using the full outer training set.
+6. Evaluate predictions on the held-out outer fold.
+7. Repeat the procedure until each patient has an out-of-fold prediction.
+
+All models will use the same outer folds to support paired comparisons.
+Models without tunable hyperparameters will still follow the same outer validation framework.
 
 ### 5.2 Evaluation metrics
 
@@ -221,11 +297,27 @@ We will use **stratified five-fold cross-validation at the patient-record level*
 | **Potential clinical utility** | Decision curve analysis over a prespecified range of plausible risk thresholds | Exploratory assessment of net benefit, not evidence of improved patient outcomes |
 | **Stability and interpretability** | Variation in performance across validation folds; GAM partial-effect plots; LASSO coefficients; a summary of relative model complexity; tree depth and number of terminal nodes | Show whether performance is stable, and whether it can be achieved with a compact set of decision rules |
 
-### 5.3 Principles of interpretation
+### 5.3 Paired comparison and uncertainty estimation
 
-- We will report cross-validated performance with variability or uncertainty estimates where feasible.
+In addition to reporting individual model performance, we will estimate the differences in AUROC and Brier score between the primary interpretable model and the primary XGBoost model.
+For example:
+
+- AUROC difference: XGBoost minus GAM;
+- Brier score difference: XGBoost minus GAM.
+
+We will use paired bootstrap resampling of patients based on the out-of-fold predictions to estimate uncertainty in these differences.
+For each bootstrap sample, the same resampled patients will be used for both models, preserving the pairing of their predictions.
+
+We will calculate bootstrap confidence intervals for the differences in AUROC and Brier score.
+The same approach may be applied to the supplementary comparison between GAM and XGBoost using the same seven predictors.
+
+These analyses will help determine not only which model has a higher estimated performance, but also how precisely the performance difference is estimated.
+
+### 5.4 Principles of interpretation
+
+- We will report cross-validated performance with variability or uncertainty estimates.
 - We will emphasize the **trade-off** between predictive performance and interpretability rather than identifying a single model as universally best.
-- Differences in AUROC will **not** be interpreted in isolation; calibration and decision curves will also be considered when assessing whether a performance difference could matter in practice.
+- Differences in AUROC will **not** be interpreted in isolation; calibration, Brier score, threshold-based metrics, and decision curves will also be considered when assessing whether a performance difference could matter in practice.
 
 ---
 
@@ -233,33 +325,52 @@ We will use **stratified five-fold cross-validation at the patient-record level*
 
 ### 6.1 Expected findings
 
-We expect that the more flexible gradient boosting model may achieve better predictive performance than the simpler interpretable models, by capturing nonlinear relationships and interactions among predictors.
+We expect that XGBoost using all eligible features may achieve better predictive performance than the smaller GAM because it can incorporate more clinical information and capture complex nonlinear relationships and interactions.
 
-However, the performance gain may be **modest**. In that case, a GAM or a shallow decision tree could offer a more transparent alternative with comparable predictive performance. We will evaluate this trade-off using discrimination, calibration, threshold-based classification metrics, and, if feasible, decision curve analysis — rather than assuming that the most complex model will perform best.
+However, the performance gain may be **modest**. If the GAM achieves competitive discrimination and calibration with only seven prespecified predictors, it may provide a more transparent and practical alternative.
+
+The supplementary comparison between GAM and XGBoost using the same seven predictors will help clarify whether any additional performance gain is associated with model flexibility rather than simply using more predictors.
+
+We will evaluate these trade-offs using discrimination, calibration, classification metrics, and decision curve analysis rather than assuming that the most complex model will perform best.
 
 ### 6.2 Explaining the black box after the fact
 
 To better understand the behavior of gradient boosting, we will use post hoc explanation methods, depending on feasibility:
 
 - feature importance;
-- SHAP values; and
+- SHAP values;
 - partial dependence or related effect plots.
 
 These methods may help us to identify influential predictors, to examine how individual predictors contribute to patient-level predictions, and to explore patterns learned by the complex model that may not be captured by the simpler models. We will compare these patterns with the effects represented by the GAM and with the decision rules learned by the shallow decision tree.
 
-### 6.3 Limitations
+### 6.3 Comparing explanations across models
+
+To help identify whether the models capture similar predictive patterns or whether the more flexible model identifies additional nonlinearities or interactions, We will compare the patterns identified by XGBoost with:
+
+- The smooth partial effects represented by the GAM;
+- The decision rules generated by the shallow decision tree; and
+- The coefficients of the LASSO logistic regression.
+
+Post hoc explanations will be interpreted cautiously, particularly when predictors are correlated.
+
+### 6.4 Limitations
 
 1. **Post hoc explanations are not causal.** They describe how a fitted model generates predictions; they do not establish causal effects or prove that a predictor is an independent clinical risk factor.
 2. **Correlated predictors are hard to attribute.** Correlated predictors may distribute or obscure apparent feature contributions, and partial dependence plots may be difficult to interpret when combinations of predictor values are uncommon in the data. Feature importance and SHAP values may also vary across fitted models and validation samples.
 3. **Generalizability is limited.** The dataset's missingness patterns, measurement frequency, and patient population may limit how far the findings extend.
 4. **No evidence of clinical benefit.** This project evaluates predictive performance using observational data and does not establish that applying the models would improve clinical outcomes.
 
-### 6.4 Overall aim
+### 6.5 Overall aim
 
 Overall, we aim to determine:
 
-- whether a relatively simple and interpretable model can achieve **competitive predictive performance**; and
+- whether a relatively simple and interpretable model can achieve **competitive predictive performance**;
 - whether post hoc explanations provide **useful, but appropriately limited, insight** into a more complex model.
+
+- Whether a compact, interpretable GAM using seven clinically meaningful predictors can achieve **competitive predictive performance** compared with XGBoost using all eligible features;
+- How much of the **performance difference** may be associated with model flexibility versus the use of additional predictors;
+- Whether the performance gain from a more complex model is sufficiently meaningful to **justify reduced interpretability**;
+- Whether post hoc explanation methods provide **useful, but appropriately limited, insights** into the behavior of the black-box model.
 
 ---
 
@@ -293,7 +404,7 @@ All members will:
 
 - review the analysis plan;
 - cross-check the results;
-- contribute to the interpretation, project proposal, final report and in-class presentation; and
+- contribute to the interpretation and the final report; and
 - document their individual contributions.
 
 The team will use a **shared set of validation folds** and **consistent outcome definitions** to ensure that model comparisons are reproducible and fair.
