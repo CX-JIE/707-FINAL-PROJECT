@@ -1,0 +1,16 @@
+feature,label,coef_per_SD
+Age,Age,0.4582368206029776
+BUN_max,BUN (max),0.3694887220041214
+HR_mean,Heart rate (mean),0.2943840699526616
+Bilirubin_max,Bilirubin (max),0.2621838148575577
+GCS_min,GCS (min),-0.22954886097975402
+Glucose_max,Glucose (max),0.15312945352076188
+HCT_min,Hematocrit (min),0.09842585687292853
+PaO2_min,PaO2 (min),0.09771533308028264
+Temp_mean,Temperature (mean),-0.09633992555633934
+SaO2_min,SaO2 (min),-0.09027890261257769
+WBC_max,WBC (max),0.07809357509844707
+RespRate_mean,Respiratory rate (mean),0.06332767349915201
+Creatinine_max,Creatinine (max),-0.03725536343153517
+MAPc_mean,"MAP (mean; invasive, else non-invasive)",0.00906710060045768
+Platelets_min,Platelets (min),-0.008107686532161446

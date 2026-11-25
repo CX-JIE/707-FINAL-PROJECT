@@ -1,0 +1,10 @@
+model,predictors,size,interpretability,AUROC
+Tree-7,7,"depth 3, 8 leaves = 8 if-then rules",Explicit rules; can be printed on one card,0.6886310398075726
+GAM-7,7,"7 smooth terms, effective df = 27.9",One curve per predictor (additive),0.7355239476104771
+LASSO-15,15,14 non-zero coefficients,One coefficient per predictor (linear),0.7202794638685359
+Ridge-15,15,15 shrunken coefficients,One coefficient per predictor (linear),0.7202668923944677
+XGB-7,7,"600 trees × depth 2 (median over folds; ≤ 2,400 leaves)",Post hoc only (SHAP / PDP),0.7617417567796911
+XGB-15,15,"600 trees × depth 4 (median over folds; ≤ 9,600 leaves)",Post hoc only (SHAP / PDP),0.7860911306155203
+XGB-full,193,"600 trees × depth 3 (median over folds; ≤ 4,800 leaves)",Post hoc only (SHAP / PDP),0.8260301799187464
+SAPS-I,14 variables,Fixed additive point score,Established clinical score,0.6498145650416645
+SOFA,6 organ systems,Fixed additive point score,Established clinical score,0.6227574306443593
